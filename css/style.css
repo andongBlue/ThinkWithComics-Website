@@ -411,32 +411,29 @@ body {
     border-top: 2px dashed var(--gray-light);
 }
 
-/* TL;DR Tabs */
+/* TL;DR Tabs - 与 Gallery tabs 完全一致 */
 .tldr-tabs {
     display: flex;
     justify-content: center;
-    gap: 15px;
     flex-wrap: wrap;
-    margin: 30px 0;
+    gap: 15px;
+    margin-bottom: 40px;
 }
 
 .tldr-tab-btn {
-    padding: 12px 24px;
-    background: var(--white);
+    padding: 12px 25px;
+    background: var(--light);
     border: 3px solid var(--comic-border);
-    border-radius: 25px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--dark);
+    border-radius: 8px;
+    font-family: var(--font-comic);
+    font-size: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 3px 3px 0px var(--comic-border);
 }
 
 .tldr-tab-btn:hover {
-    background: var(--light);
-    transform: translate(-2px, -2px);
-    box-shadow: 5px 5px 0px var(--comic-border);
+    background: var(--comic-yellow);
 }
 
 .tldr-tab-btn.active {
@@ -449,66 +446,32 @@ body {
 /* TL;DR Examples Content */
 .tldr-examples-content {
     min-height: 400px;
-    margin-top: 30px;
 }
 
 .tldr-examples-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
-    margin: 0 auto;
-    max-width: 1200px;
-    opacity: 1;
-    transition: opacity 0.3s ease;
 }
 
 .tldr-examples-grid.hidden {
     display: none;
 }
 
+/* TL;DR items 使用与 Gallery 相同的样式 */
 .tldr-example-item {
-    text-align: center;
     transition: transform 0.3s ease;
-    animation: fadeInUp 0.6s ease-out;
 }
 
 .tldr-example-item:hover {
     transform: translateY(-5px);
 }
 
-.tldr-example-image {
-    position: relative;
-    border: 3px solid var(--comic-border);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 4px 4px 0px var(--comic-border);
-    background: var(--white);
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.tldr-example-image:hover {
-    box-shadow: 6px 6px 0px var(--comic-border);
-    transform: translate(-2px, -2px);
-}
-
-.tldr-example-image img {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: transform 0.3s ease;
-}
-
-.tldr-example-image:hover img {
-    transform: scale(1.05);
-}
-
 .tldr-example-caption {
     margin-top: 15px;
-    font-size: 0.9rem;
+    text-align: center;
     color: var(--gray);
-    line-height: 1.5;
-    padding: 0 10px;
+    font-size: 0.95rem;
 }
 
 /* Section Styles */
