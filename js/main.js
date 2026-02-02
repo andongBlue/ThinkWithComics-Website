@@ -1,9 +1,40 @@
 /**
  * Thinking with Comics - Website JavaScript
- * Interactive elements and animations
+ * Interactive elements and animations (Full Version)
  */
 
 document.addEventListener('DOMContentLoaded', function() {
+    
+    // ========================================
+    // Mobile Navigation
+    // ========================================
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    const navOverlay = document.querySelector('.nav-overlay');
+    
+    if (navToggle && navMenu && navOverlay) {
+        navToggle.addEventListener('click', () => {
+            const isOpen = navMenu.classList.contains('open');
+            navMenu.classList.toggle('open');
+            navOverlay.classList.toggle('open');
+            navToggle.setAttribute('aria-expanded', !isOpen);
+        });
+        
+        navOverlay.addEventListener('click', () => {
+            navMenu.classList.remove('open');
+            navOverlay.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
+        });
+        
+        // Close menu when clicking a link
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('open');
+                navOverlay.classList.remove('open');
+                navToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+    }
     
     // ========================================
     // Scroll Animations
@@ -105,114 +136,42 @@ document.addEventListener('DOMContentLoaded', function() {
     // Image Modal (Lightbox)
     // ========================================
     const galleryImages = document.querySelectorAll('.comic-frame-wrapper img');
+    const modal = document.querySelector('.image-modal');
+    const modalImg = modal ? modal.querySelector('.modal-content img') : null;
+    const modalClose = modal ? modal.querySelector('.modal-close') : null;
+    const modalOverlay = modal ? modal.querySelector('.modal-overlay') : null;
     
-    // Create modal elements
-    const modal = document.createElement('div');
-    modal.className = 'image-modal';
-    modal.innerHTML = `
-        <div class="modal-overlay"></div>
-        <div class="modal-content">
-            <button class="modal-close">&times;</button>
-            <img src="" alt="Full size image">
-        </div>
-    `;
-    document.body.appendChild(modal);
-    
-    // Add modal styles
-    const modalStyles = document.createElement('style');
-    modalStyles.textContent = `
-        .image-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .image-modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .image-modal.visible {
-            opacity: 1;
-        }
-        .modal-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-        }
-        .modal-content {
-            position: relative;
-            max-width: 90%;
-            max-height: 90%;
-            z-index: 1;
-        }
-        .modal-content img {
-            max-width: 100%;
-            max-height: 85vh;
-            border: 4px solid white;
-            border-radius: 8px;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
-        }
-        .modal-close {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            background: #FF6B6B;
-            color: white;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s ease;
-        }
-        .modal-close:hover {
-            transform: scale(1.1);
-        }
-    `;
-    document.head.appendChild(modalStyles);
-    
-    const modalImg = modal.querySelector('.modal-content img');
-    const modalClose = modal.querySelector('.modal-close');
-    const modalOverlay = modal.querySelector('.modal-overlay');
-    
-    galleryImages.forEach(img => {
-        img.style.cursor = 'pointer';
-        img.addEventListener('click', () => {
-            modalImg.src = img.src;
-            modal.classList.add('active');
-            setTimeout(() => modal.classList.add('visible'), 10);
-            document.body.style.overflow = 'hidden';
+    if (modal && modalImg) {
+        galleryImages.forEach(img => {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', () => {
+                modalImg.src = img.src;
+                modal.classList.add('active');
+                setTimeout(() => modal.classList.add('visible'), 10);
+                document.body.style.overflow = 'hidden';
+            });
         });
-    });
-    
-    function closeModal() {
-        modal.classList.remove('visible');
-        setTimeout(() => {
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-        }, 300);
-    }
-    
-    modalClose.addEventListener('click', closeModal);
-    modalOverlay.addEventListener('click', closeModal);
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeModal();
+        
+        function closeModal() {
+            modal.classList.remove('visible');
+            setTimeout(() => {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }, 300);
         }
-    });
+        
+        if (modalClose) {
+            modalClose.addEventListener('click', closeModal);
+        }
+        if (modalOverlay) {
+            modalOverlay.addEventListener('click', closeModal);
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    }
     
     // ========================================
     // Comic-style hover effects
@@ -235,6 +194,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const decoration = document.querySelector('.comic-decoration');
     
     function createFloatingElement() {
+        if (!decoration) return;
+        
         const element = document.createElement('div');
         element.className = 'pow-bubble floating';
         element.textContent = comicWords[Math.floor(Math.random() * comicWords.length)];
@@ -264,18 +225,36 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(createFloatingElement, 8000);
     
     // ========================================
-    // Typing effect for hero subtitle (optional)
+    // Analysis panel images zoom on click
     // ========================================
-    const highlightText = document.querySelector('.highlight-text');
-    if (highlightText) {
-        highlightText.style.opacity = '0';
-        setTimeout(() => {
-            highlightText.style.transition = 'opacity 0.5s ease';
-            highlightText.style.opacity = '1';
-        }, 500);
+    const analysisImages = document.querySelectorAll('.analysis-panel img');
+    if (modal && modalImg) {
+        analysisImages.forEach(img => {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', () => {
+                modalImg.src = img.src;
+                modal.classList.add('active');
+                setTimeout(() => modal.classList.add('visible'), 10);
+                document.body.style.overflow = 'hidden';
+            });
+        });
     }
     
-    console.log('🎨 Thinking with Comics website loaded!');
+    // ========================================
+    // Hero benchmark image zoom on click
+    // ========================================
+    const benchmarkImg = document.querySelector('.hero-benchmark img');
+    if (benchmarkImg && modal && modalImg) {
+        benchmarkImg.style.cursor = 'pointer';
+        benchmarkImg.addEventListener('click', () => {
+            modalImg.src = benchmarkImg.src;
+            modal.classList.add('active');
+            setTimeout(() => modal.classList.add('visible'), 10);
+            document.body.style.overflow = 'hidden';
+        });
+    }
+    
+    console.log('🎨 Thinking with Comics website (Full Version) loaded!');
 });
 
 /**

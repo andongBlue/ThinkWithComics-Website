@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thinking with Comics | ICML 2026</title>
+    <title>Thinking with Comics</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <!-- Chart.js for academic-style visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2.2.1/dist/chartjs-plugin-annotation.min.js"></script>
 </head>
 <body>
     <!-- Comic-style floating elements -->
@@ -21,6 +24,10 @@
 
     <!-- Navigation -->
     <nav class="navbar">
+        <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-overlay" aria-hidden="true"></div>
         <div class="nav-container">
             <a href="#" class="nav-logo">
                 <span class="comic-text">🎨 TwC</span>
@@ -44,27 +51,18 @@
                 <div class="panel-corner bl"></div>
                 <div class="panel-corner br"></div>
                 
-                <span class="venue-badge">ICML 2026</span>
-                <h1 class="hero-title">
-                    <span class="title-line">Thinking with</span>
-                    <span class="title-highlight">Comics</span>
-                </h1>
-                <p class="hero-subtitle">
-                    Enhancing LLM Generative Capabilities through<br>
-                    <span class="highlight-text">Structured Visual Storytelling</span>
-                </p>
+                <h1 class="hero-title">Thinking with <span class="comic-word">Comics</span>: Enhancing Multimodal Reasoning through Structured Visual Storytelling</h1>
                 
                 <div class="author-list">
-                    <span class="author">Author 1<sup>1*</sup></span>
-                    <span class="author">Author 2<sup>1*</sup></span>
-                    <span class="author">Author 3<sup>2</sup></span>
-                    <span class="author">Author 4<sup>1</sup></span>
-                    <span class="author">Author 5<sup>2</sup></span>
+                    <span class="author">Andong Chen</span>
+                    <span class="author">Wenxin Zhu</span>
+                    <span class="author">Qiuyu Ding</span>
+                    <span class="author">Yuchen Song</span>
+                    <span class="author">Muyun Yang</span>
+                    <span class="author">Tiejun Zhao</span>
                 </div>
                 <div class="affiliation-list">
-                    <span><sup>1</sup>University A</span>
-                    <span><sup>2</sup>University B</span>
-                    <span class="equal-contrib"><sup>*</sup>Equal Contribution</span>
+                    <span>Harbin Institute of Technology</span>
                 </div>
                 
                 <div class="hero-buttons">
@@ -82,6 +80,11 @@
                     </a>
                 </div>
             </div>
+        </div>
+
+        <!-- Benchmark Figure -->
+        <div class="hero-benchmark" aria-label="Benchmark figure">
+            <img src="images/benchmark.png" alt="Benchmark results figure" loading="lazy">
         </div>
         
         <!-- Animated comic strip preview -->
@@ -111,7 +114,6 @@
             </div>
         </div>
     </section>
-
 
     <!-- Abstract Section -->
     <section id="abstract" class="section abstract-section">
@@ -173,7 +175,7 @@
                     <div class="finding-icon">🔗</div>
                     <h3>Gutter Reasoning</h3>
                     <p>Models actively use the logic between panels (gutters), with 
-                       <strong>>40%</strong> accuracy drop when panels are shuffled.</p>
+                       <strong>&gt;40%</strong> accuracy drop when panels are shuffled.</p>
                 </div>
             </div>
         </div>
@@ -297,123 +299,495 @@
             </div>
             
             <div class="results-tables">
-                <div class="table-container">
-                    <h3>📊 Main Results on Reasoning Benchmarks</h3>
+                <div class="table-container full-width">
+                    <h3>📊 Main Results on Reasoning and Context Understanding Benchmarks</h3>
+                    <p class="table-note">* denotes results from Tong et al. (2025); ★ indicates evaluation on 50 sampled instances.</p>
                     <table class="results-table">
                         <thead>
                             <tr>
-                                <th>Method</th>
+                                <th>Category</th>
+                                <th>Model / Method</th>
+                                <th>Notes</th>
                                 <th>MATH-500</th>
                                 <th>GSM8K</th>
                                 <th>MathVista</th>
+                                <th>DocVQA</th>
+                                <th>CulturalBench (E/H)</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>GPT-5-High</td>
+                                <td rowspan="3">MLLM</td>
+                                <td>GPT-5.2</td>
+                                <td>direct</td>
                                 <td>99.0</td>
-                                <td><u>100.0</u></td>
+                                <td>100.0</td>
                                 <td>67.5</td>
+                                <td>72.8</td>
+                                <td>88.3 / 84.4</td>
                             </tr>
                             <tr>
                                 <td>Gemini-3-Pro</td>
+                                <td>direct</td>
                                 <td><strong>100.0</strong></td>
                                 <td>99.0</td>
                                 <td>71.5</td>
+                                <td>94.5</td>
+                                <td><strong>90.4</strong> / <strong>90.0</strong></td>
                             </tr>
                             <tr>
                                 <td>Claude-Sonnet 4.5</td>
+                                <td>direct</td>
                                 <td>99.0</td>
-                                <td><u>100.0</u></td>
+                                <td>100.0</td>
                                 <td>72.5</td>
+                                <td>92.6</td>
+                                <td>87.2 / 76.5</td>
+                            </tr>
+                            <tr class="separator-row">
+                                <td rowspan="2">Reasoning LLM</td>
+                                <td>DeepSeek-R1</td>
+                                <td>CoT</td>
+                                <td>90.4</td>
+                                <td>96.1</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td>87.2 / 85.1</td>
                             </tr>
                             <tr>
-                                <td>Think with Video (Sora 2)</td>
-                                <td>67.0</td>
-                                <td>75.7</td>
-                                <td>67.6</td>
+                                <td>Qwen3-235B-A22B</td>
+                                <td>CoT</td>
+                                <td>92.4</td>
+                                <td>94.3</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td>83.1 / 82.5</td>
+                            </tr>
+                            <tr class="separator-row">
+                                <td rowspan="2">Think with Image</td>
+                                <td>TWI-Generated Photo</td>
+                                <td>G-t-R</td>
+                                <td>70.2</td>
+                                <td>69.4</td>
+                                <td>63.6</td>
+                                <td>67.5</td>
+                                <td>69.7 / 71.4</td>
+                            </tr>
+                            <tr>
+                                <td>DREAMLLM</td>
+                                <td>G-t-R</td>
+                                <td>12.6</td>
+                                <td>18.4</td>
+                                <td>35.9</td>
+                                <td>65.5</td>
+                                <td>52.3 / 42.8</td>
+                            </tr>
+                            <tr class="separator-row">
+                                <td>Think with Video</td>
+                                <td>Sora 2</td>
+                                <td>V-o-T</td>
+                                <td>67.0*</td>
+                                <td>75.7*</td>
+                                <td>67.6★</td>
+                                <td>50.5★</td>
+                                <td>60.0★ / 70.0★</td>
                             </tr>
                             <tr class="highlight-row">
+                                <td rowspan="2"><strong>Think with Comic</strong></td>
                                 <td><strong>TwC (Ours) - Path I</strong></td>
+                                <td>direct</td>
                                 <td>90.0</td>
                                 <td><strong>100.0</strong></td>
-                                <td><u>75.0</u></td>
+                                <td>75.0</td>
+                                <td>92.8</td>
+                                <td>70.0 / 80.5</td>
                             </tr>
                             <tr class="highlight-row best">
                                 <td><strong>TwC (Ours) - Path II</strong></td>
+                                <td>G-t-R</td>
                                 <td>92.3</td>
                                 <td>95.4</td>
                                 <td><strong>85.8</strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-                <div class="table-container">
-                    <h3>📚 Context Understanding Benchmarks</h3>
-                    <table class="results-table">
-                        <thead>
-                            <tr>
-                                <th>Method</th>
-                                <th>DocVQA</th>
-                                <th>CulturalBench-Easy</th>
-                                <th>CulturalBench-Hard</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="highlight-row">
-                                <td><strong>TwC (Ours) - Path I</strong></td>
-                                <td><u>92.8</u></td>
-                                <td>70.0</td>
-                                <td><u>80.5</u></td>
-                            </tr>
-                            <tr class="highlight-row best">
-                                <td><strong>TwC (Ours) - Path II</strong></td>
                                 <td><strong>99.4</strong></td>
-                                <td><strong>88.3</strong></td>
-                                <td><strong>82.2</strong></td>
+                                <td>88.3 / 82.2</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+
+            <!-- Narrative Style Alignment -->
+            <div class="analysis-section">
+                <h3>🎭 Role-playing Narrative Alignment</h3>
+                <p class="analysis-intro">Different comic styles act as "Visual System Prompts" for different task types:</p>
+                <div class="table-container compact">
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Style (Visual Prompt)</th>
+                                <th>MathVista</th>
+                                <th>GSM8K</th>
+                                <th>Avg. Δ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Documentary (Base)</td>
+                                <td>60.0</td>
+                                <td>68.0</td>
+                                <td>—</td>
+                            </tr>
+                            <tr>
+                                <td>Slice-of-Life</td>
+                                <td>80.0</td>
+                                <td>86.3</td>
+                                <td class="positive">+19.1</td>
+                            </tr>
+                            <tr class="highlight-row best">
+                                <td><strong>🕵️ Detective Style</strong></td>
+                                <td><strong>85.0</strong></td>
+                                <td><strong>100.0</strong></td>
+                                <td class="positive"><strong>+28.5</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="analysis-caption">Detective-style significantly outperforms the documentary baseline with <strong>+44.5%</strong> relative improvement. This confirms that role-playing narrative style is not merely visual decoration but a potent Visual System Prompt.</p>
+            </div>
+
+            <!-- Figure 3: Scaling the Panels -->
+            <div class="analysis-section">
+                <h3>Figure 3: Scaling the Panels</h3>
+                <div class="chart-container academic-chart">
+                    <canvas id="scalingChart"></canvas>
+                </div>
+                <p class="figure-caption">
+                    <strong>Figure 3.</strong> The performance-cost curve across different panel counts <em>N</em>. 
+                    Accuracy enters a plateau at <em>N</em> ∈ [4, 6]. On the MATH500 dataset, token cost ranges between 1100 and 1300.
+                    The shaded green region indicates the Pareto optimal range.
+                </p>
+            </div>
+
+            <!-- Figure 4: Panel Distribution -->
+            <div class="analysis-section">
+                <h3>Figure 4: Panel Distribution Across Task Difficulties</h3>
+                <div class="chart-container academic-chart">
+                    <canvas id="distributionChart"></canvas>
+                </div>
+                <p class="figure-caption">
+                    <strong>Figure 4.</strong> Frequency distribution of generated panels across tasks with varying difficulty levels. 
+                    The shift to the right indicates the model's adaptive allocation of reasoning steps for complex tasks.
+                </p>
+            </div>
             
-            <!-- Efficiency Comparison -->
-            <div class="efficiency-section">
-                <h3>⚡ Efficiency: Comics vs Video</h3>
-                <div class="efficiency-comparison">
-                    <div class="efficiency-card video">
-                        <div class="efficiency-icon">🎬</div>
-                        <h4>Think with Video</h4>
-                        <div class="efficiency-stats">
-                            <div class="stat">
-                                <span class="stat-value">100%</span>
-                                <span class="stat-label">Cost</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">96.5%</span>
-                                <span class="stat-label">Accuracy</span>
-                            </div>
+            <!-- Figure 5: Temporal Sequence -->
+            <div class="analysis-section">
+                <h3>Figure 5: Effect of Temporal Structure on Reasoning</h3>
+                <div class="chart-container academic-chart">
+                    <canvas id="temporalChart"></canvas>
+                </div>
+                <p class="figure-caption">
+                    <strong>Figure 5.</strong> Model accuracy under two controlled manipulations of comic panel sequences: 
+                    <em>Complete Shuffle</em> (blue), which disrupts temporal order, and <em>Intermediate Deletion</em> (orange), 
+                    which removes intermediate panels while preserving relative order. Accuracy consistently decreases as 
+                    perturbation intensity increases, with deletion causing a larger drop than shuffling.
+                </p>
+            </div>
+
+            <!-- Figure 6: Textual Anchoring Ablation -->
+            <div class="analysis-section">
+                <h3>Figure 6: Ablation on Textual Anchoring</h3>
+                <div class="chart-container academic-chart">
+                    <canvas id="ablationChart"></canvas>
+                </div>
+                <p class="figure-caption">
+                    <strong>Figure 6.</strong> Ablation results on textual anchoring. Embedded text (bubbles, narration) provides 
+                    precise semantic cues that significantly improve accuracy across all benchmarks.
+                </p>
+            </div>
+
+            <!-- Figure 7: Efficiency Analysis -->
+            <div class="analysis-section">
+                <h3>Figure 7: Efficiency Analysis of TwC vs Think with Video</h3>
+                
+                <!-- Cost Function Definition -->
+                <div class="math-definition">
+                    <p>We define the visual signal generation cost function <em>C</em>(·):</p>
+                    <div class="equation-block">
+                        <div class="equation">
+                            <span class="eq-label">Video:</span>
+                            <span class="eq-math"><em>C</em><sub>video</sub>(<em>t</em>) = α · <em>t</em></span>
+                            <span class="eq-note">(α = $0.10/s, time-dependent)</span>
+                        </div>
+                        <div class="equation">
+                            <span class="eq-label">TwC:</span>
+                            <span class="eq-math"><em>C</em><sub>comic</sub> = β</span>
+                            <span class="eq-note">(β = $0.134/img, constant)</span>
                         </div>
                     </div>
-                    <div class="efficiency-arrow">
-                        <span class="arrow-text">-85% Cost</span>
-                        <i class="fas fa-arrow-right"></i>
+                </div>
+                
+                <div class="chart-container academic-chart" style="height: 400px;">
+                    <canvas id="efficiencyChart"></canvas>
+                </div>
+                <p class="figure-caption">
+                    <strong>Figure 7.</strong> Comparing the image generation cost models. While video generation cost (<em>C</em><sub>video</sub>) 
+                    scales linearly with task duration due to temporal redundancy, TwC maintains a low, constant cost (<em>C</em><sub>comic</sub>) 
+                    regardless of the event's temporal length. The shaded area represents the economic advantage of our approach.
+                    Break-even point at <em>t</em> ≈ 1.34s.
+                </p>
+                
+                <!-- Key Metrics Box -->
+                <div class="metrics-highlight">
+                    <div class="metric-card">
+                        <div class="metric-value">$1.00</div>
+                        <div class="metric-label">Video Cost (10s task)</div>
                     </div>
-                    <div class="efficiency-card comic">
-                        <div class="efficiency-icon">📖</div>
-                        <h4>Think with Comics</h4>
-                        <div class="efficiency-stats">
-                            <div class="stat">
-                                <span class="stat-value highlight">15%</span>
-                                <span class="stat-label">Cost</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">88.2%</span>
-                                <span class="stat-label">Accuracy</span>
-                            </div>
+                    <div class="metric-arrow">→</div>
+                    <div class="metric-card highlight">
+                        <div class="metric-value">$0.134</div>
+                        <div class="metric-label">TwC Cost (same task)</div>
+                    </div>
+                    <div class="metric-result">
+                        <div class="metric-value positive">86.6%</div>
+                        <div class="metric-label">Cost Reduction</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appendix Section: Theoretical & Empirical Analysis -->
+    <section id="appendix" class="section appendix-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="comic-caption">APPENDIX</div>
+                <h2 class="section-title">Theoretical & Empirical Analysis</h2>
+                <p class="section-desc">Why Comics Are a Privileged Visual Reasoning Medium</p>
+            </div>
+
+            <!-- Theoretical Analysis -->
+            <div class="appendix-subsection">
+                <h3>📐 Theoretical Justification</h3>
+                
+                <!-- Information Efficiency -->
+                <div class="theorem-box">
+                    <div class="theorem-title">Definition: Information-Efficiency</div>
+                    <div class="theorem-content">
+                        <p>We characterize an intermediate representation <em>z</em> by its <strong>information-efficiency</strong> for task solving:</p>
+                        <div class="math-block">
+                            <span class="math-formula">η(<em>z</em>) ≜ <span class="frac"><span class="num"><em>I</em>(<em>a</em>; <em>z</em> | <em>q</em>)</span><span class="den"><em>C</em>(<em>z</em>)</span></span></span>
                         </div>
-                        <div class="efficiency-badge">92% Performance Retained!</div>
+                        <p class="math-note">where <em>I</em>(·;·|·) is conditional mutual information and <em>C</em>(<em>z</em>) is the media generation cost.</p>
+                    </div>
+                </div>
+
+                <!-- Temporal Structure Theorem -->
+                <div class="theorem-box">
+                    <div class="theorem-title">Proposition 1: Comics Outperform Single Images</div>
+                    <div class="theorem-content">
+                        <p>If the answer <em>a</em> depends on multi-step temporal relations in latent trajectory <em>s</em><sub>1:T</sub>, then any single snapshot <em>x</em> = <em>h</em>(<em>s<sub>t</sub></em>) may discard relevant states:</p>
+                        <div class="math-block">
+                            <span class="math-formula"><em>I</em>(<em>a</em>; <em>s</em><sub>1:T</sub> | <em>q</em>) > <em>I</em>(<em>a</em>; <em>x</em> | <em>q</em>)</span>
+                        </div>
+                        <p>Comics represent a structured summary <em>z</em><sub>comic</sub> = (<em>c</em><sub>1:K</sub>, τ) with <em>K</em> panels and embedded text τ. By chain rule:</p>
+                        <div class="math-block">
+                            <span class="math-formula"><em>I</em>(<em>a</em>; <em>z</em><sub>comic</sub> | <em>q</em>) = <em>I</em>(<em>a</em>; <em>c</em><sub>1:K</sub> | <em>q</em>) + <em>I</em>(<em>a</em>; τ | <em>q</em>, <em>c</em><sub>1:K</sub>)</span>
+                        </div>
+                        <p class="math-note">The second term captures the additional <strong>semantic anchoring</strong> channel from embedded text.</p>
+                    </div>
+                </div>
+
+                <!-- Budget Efficiency Theorem -->
+                <div class="theorem-box">
+                    <div class="theorem-title">Proposition 2: Comics Are More Efficient Than Videos Under a Budget</div>
+                    <div class="theorem-content">
+                        <p>For a video <em>v</em> = (<em>x</em><sub>1</sub>, ..., <em>x</em><sub>T</sub>) with <em>T</em> frames:</p>
+                        <div class="math-block">
+                            <span class="math-formula"><em>I</em>(<em>a</em>; <em>v</em> | <em>q</em>) = <span class="sum">∑<sub>t=1</sub><sup>T</sup></span> <em>I</em>(<em>a</em>; <em>x<sub>t</sub></em> | <em>q</em>, <em>x</em><sub>&lt;t</sub>)</span>
+                        </div>
+                        <p>Due to temporal redundancy, <em>I</em>(<em>a</em>; <em>v</em> | <em>q</em>) grows <strong>sublinearly</strong> with <em>T</em>, while video cost grows <strong>linearly</strong>.</p>
+                        <p>Comics select <em>K</em> ≪ <em>T</em> key states to maximize task-relevant information:</p>
+                        <div class="math-block">
+                            <span class="math-formula"><em>c</em><sub>1:K</sub> ≈ argmax<sub>|S|=K</sub> <em>I</em>(<em>a</em>; <em>x</em><sub>S</sub> | <em>q</em>)</span>
+                        </div>
+                        <p class="math-note">This leads to higher η(<em>z</em><sub>comic</sub>) than η(<em>v</em>) at the same budget.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empirical Analysis: Experiment 1 -->
+            <div class="appendix-subsection">
+                <h3>🔬 Empirical Analysis A.1: Prompt-Induced Structural Stability</h3>
+                <p class="analysis-intro">
+                    This experiment examines whether comics, compared to non-comic visual styles, more naturally and stably support multi-panel generation.
+                </p>
+                
+                <div class="experiment-setup">
+                    <div class="setup-item">
+                        <strong>Comic Condition:</strong> "Draw a four-panel comic to solve the problem."
+                    </div>
+                    <div class="setup-item">
+                        <strong>Non-Comic Condition:</strong> "Draw a four-step visual storyboard in a realistic style."
+                    </div>
+                </div>
+
+                <div class="table-container full-width">
+                    <table class="results-table appendix-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Dataset</th>
+                                <th>Comic</th>
+                                <th>Non-Comic</th>
+                                <th>Improvement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="2">Layout Success Rate (%)<br><small>(Panel Consistency)</small></td>
+                                <td>MATH-500</td>
+                                <td class="highlight"><strong>95.0</strong></td>
+                                <td>70.0</td>
+                                <td class="positive">+25.0</td>
+                            </tr>
+                            <tr>
+                                <td>MathVista</td>
+                                <td class="highlight"><strong>90.0</strong></td>
+                                <td>65.0</td>
+                                <td class="positive">+25.0</td>
+                            </tr>
+                            <tr class="separator-row"><td colspan="5"></td></tr>
+                            <tr>
+                                <td rowspan="2">Reasoning Accuracy (%)</td>
+                                <td>MATH-500</td>
+                                <td class="highlight"><strong>75.0</strong></td>
+                                <td>60.0</td>
+                                <td class="positive">+15.0</td>
+                            </tr>
+                            <tr>
+                                <td>MathVista</td>
+                                <td class="highlight"><strong>70.0</strong></td>
+                                <td>55.0</td>
+                                <td class="positive">+15.0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="figure-caption">
+                    <strong>Table A.1.</strong> Comparison of structural stability and reasoning accuracy between Comic and Non-Comic prompts. 
+                    Comic prompts consistently induce structurally complete multi-panel layouts, while Non-Comic instructions frequently suffer from layout collapse.
+                </p>
+            </div>
+
+            <!-- Empirical Analysis: Experiment 2 -->
+            <div class="appendix-subsection">
+                <h3>🔬 Empirical Analysis A.2: Global vs. Incremental Visual Reasoning</h3>
+                <p class="analysis-intro">
+                    This experiment compares <strong>Global Comic generation</strong> (complete multi-panel comic in a single pass) 
+                    and <strong>Incremental image chaining</strong> (panels generated sequentially conditioned on previous outputs).
+                </p>
+
+                <div class="table-container full-width">
+                    <table class="results-table appendix-table">
+                        <thead>
+                            <tr>
+                                <th>Benchmark</th>
+                                <th>Method</th>
+                                <th>ACC (%) ↑</th>
+                                <th>Logic ↑</th>
+                                <th>State ↑</th>
+                                <th>Quality ↑</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="2">MATH-500</td>
+                                <td>Incremental</td>
+                                <td>80.0</td>
+                                <td>4.17</td>
+                                <td>3.72</td>
+                                <td>3.58</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Global (Ours)</strong></td>
+                                <td class="highlight"><strong>95.0</strong></td>
+                                <td class="highlight"><strong>4.86</strong></td>
+                                <td class="highlight"><strong>4.67</strong></td>
+                                <td class="highlight"><strong>4.61</strong></td>
+                            </tr>
+                            <tr class="separator-row"><td colspan="6"></td></tr>
+                            <tr>
+                                <td rowspan="2">MathVista</td>
+                                <td>Incremental</td>
+                                <td>50.0</td>
+                                <td>3.50</td>
+                                <td>3.50</td>
+                                <td>3.40</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Global (Ours)</strong></td>
+                                <td class="highlight"><strong>85.0</strong></td>
+                                <td class="highlight"><strong>4.47</strong></td>
+                                <td class="highlight"><strong>4.45</strong></td>
+                                <td class="highlight"><strong>4.58</strong></td>
+                            </tr>
+                            <tr class="separator-row"><td colspan="6"></td></tr>
+                            <tr class="average-row">
+                                <td rowspan="2"><strong>Average</strong></td>
+                                <td>Incremental</td>
+                                <td>65.0</td>
+                                <td>3.83</td>
+                                <td>3.61</td>
+                                <td>3.49</td>
+                            </tr>
+                            <tr class="average-row">
+                                <td><strong>Global (Ours)</strong></td>
+                                <td class="highlight"><strong>90.0</strong></td>
+                                <td class="highlight"><strong>4.67</strong></td>
+                                <td class="highlight"><strong>4.56</strong></td>
+                                <td class="highlight"><strong>4.59</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="figure-caption">
+                    <strong>Table A.2.</strong> Human evaluation results comparing Global and Incremental generation. 
+                    We evaluate Accuracy (ACC) and three structural metrics (1-5 scale): <strong>Logic</strong> (reasoning flow), 
+                    <strong>State</strong> (consistency between panels), and <strong>Quality</strong> (visual-textual fidelity). 
+                    Global generation shows significant superiority in both objective performance and structural coherence.
+                </p>
+                
+                <!-- Qualitative Comparison Figure -->
+                <div class="comparison-figure-container" style="margin-top: 40px;">
+                    <h4 style="text-align: center; margin-bottom: 20px; color: var(--dark);">Qualitative Comparison</h4>
+                    <a href="images/appendix/comparison_figure.pdf" target="_blank" class="pdf-preview-link" style="display: block; text-decoration: none;">
+                        <div class="figure-wrapper pdf-preview" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 2px solid #4472C4; border-radius: 12px; padding: 40px; max-width: 100%; text-align: center; cursor: pointer; transition: all 0.3s ease;">
+                            <div style="margin-bottom: 20px;">
+                                <i class="fas fa-file-pdf" style="font-size: 4rem; color: #4472C4;"></i>
+                            </div>
+                            <h5 style="color: #2c3e50; margin-bottom: 10px; font-size: 1.2rem;">Global Comic vs Incremental Non-Comic</h5>
+                            <p style="color: #666; margin-bottom: 15px;">Mathematical reasoning task comparison (Finding divisors of 196)</p>
+                            <span style="display: inline-block; background: #4472C4; color: white; padding: 10px 25px; border-radius: 25px; font-weight: 500;">
+                                <i class="fas fa-external-link-alt"></i> Click to View Full Figure
+                            </span>
+                        </div>
+                    </a>
+                    <p class="figure-caption">
+                        <strong>Figure A.1.</strong> Qualitative comparison between (a) Global Comic (Ours) and (b) Incremental Non-Comic generation 
+                        for a mathematical reasoning task (finding divisors of 196). Global generation maintains a consistent character (FactoBot) 
+                        and smooth logical flow, whereas the incremental baseline exhibits static scenes and lacks narrative coherence.
+                    </p>
+                </div>
+                
+                <!-- Key Insight Box -->
+                <div class="insight-box">
+                    <div class="insight-icon">💡</div>
+                    <div class="insight-content">
+                        <h4>Key Insight</h4>
+                        <p>Global generation yields significantly stronger cross-panel coherence with more stable entity representations and smoother reasoning progression, 
+                        whereas incremental generation suffers from <strong>error accumulation</strong>. This suggests that treating comics as a 
+                        <strong>holistic structured representation</strong> is crucial for preserving multi-step reasoning quality.</p>
                     </div>
                 </div>
             </div>
@@ -432,137 +806,137 @@
             <div class="gallery-tabs">
                 <button class="tab-btn active" data-tab="math">🔢 Math Reasoning</button>
                 <button class="tab-btn" data-tab="visual">👁️ Visual Math</button>
+                <button class="tab-btn" data-tab="culture">🏛️ Culture QA</button>
                 <button class="tab-btn" data-tab="document">📄 Document QA</button>
                 <button class="tab-btn" data-tab="translation">🌐 Translation</button>
             </div>
             
             <div class="gallery-content">
+                <!-- Math Reasoning Gallery -->
                 <div class="gallery-grid" id="gallery-math">
                     <div class="gallery-item">
                         <div class="comic-frame-wrapper">
-                            <img src="images/examples/comic_1.png" alt="GSM8K Example 1" loading="lazy">
+                            <img src="images/examples/gsm8k/comic_1.png" alt="GSM8K Example 1" loading="lazy">
                             <div class="frame-overlay">
                                 <span class="frame-label">GSM8K</span>
                             </div>
                         </div>
-                        <p class="gallery-caption">Math word problem solved step-by-step</p>
+                        <p class="gallery-caption">GSM8K math problem solved through visual storytelling with step-by-step reasoning in comic panels.</p>
                     </div>
                     <div class="gallery-item">
                         <div class="comic-frame-wrapper">
-                            <img src="images/examples/comic_3.png" alt="GSM8K Example 2" loading="lazy">
+                            <img src="images/examples/gsm8k/comic_3.png" alt="GSM8K Example 2" loading="lazy">
                             <div class="frame-overlay">
                                 <span class="frame-label">GSM8K</span>
                             </div>
                         </div>
-                        <p class="gallery-caption">Multi-step arithmetic reasoning</p>
-                    </div>
-                    <div class="gallery-item">
-                        <div class="comic-frame-wrapper">
-                            <img src="images/examples/math500_1.png" alt="MATH-500 Example 1" loading="lazy">
-                            <div class="frame-overlay">
-                                <span class="frame-label">MATH-500</span>
-                            </div>
-                        </div>
-                        <p class="gallery-caption">Competition-level math problem</p>
-                    </div>
-                    <div class="gallery-item">
-                        <div class="comic-frame-wrapper">
-                            <img src="images/examples/math500_2.png" alt="MATH-500 Example 2" loading="lazy">
-                            <div class="frame-overlay">
-                                <span class="frame-label">MATH-500</span>
-                            </div>
-                        </div>
-                        <p class="gallery-caption">Advanced mathematical reasoning</p>
+                        <p class="gallery-caption">Multi-step arithmetic reasoning visualized through detective-style comic narrative.</p>
                     </div>
                 </div>
                 
+                <!-- Visual Math Gallery -->
                 <div class="gallery-grid hidden" id="gallery-visual">
                     <div class="gallery-item">
                         <div class="comic-frame-wrapper">
-                            <img src="images/examples/comic_2.png" alt="MathVista Example" loading="lazy">
+                            <img src="images/examples/mathvista/comic_1.png" alt="MathVista Example 1" loading="lazy">
                             <div class="frame-overlay">
                                 <span class="frame-label">MathVista</span>
                             </div>
                         </div>
-                        <p class="gallery-caption">Visual math reasoning with diagrams</p>
+                        <p class="gallery-caption">Visual mathematical reasoning with chart understanding through comic narrative.</p>
                     </div>
                     <div class="gallery-item">
                         <div class="comic-frame-wrapper">
-                            <img src="images/examples/mathvista_1.png" alt="MathVista Slice-of-Life 1" loading="lazy">
+                            <img src="images/examples/mathvista/comic_2.png" alt="MathVista Example 2" loading="lazy">
                             <div class="frame-overlay">
                                 <span class="frame-label">MathVista</span>
                             </div>
                         </div>
-                        <p class="gallery-caption">Slice-of-Life style visual reasoning</p>
+                        <p class="gallery-caption">Visual diagram interpretation with step-by-step reasoning in detective-style comic.</p>
+                    </div>
+                </div>
+
+                <!-- Culture QA Gallery -->
+                <div class="gallery-grid hidden" id="gallery-culture">
+                    <div class="gallery-item">
+                        <div class="comic-frame-wrapper">
+                            <img src="images/examples/culturalbench/comic_1.png" alt="CulturalBench Example 1" loading="lazy">
+                            <div class="frame-overlay">
+                                <span class="frame-label">CulturalBench</span>
+                            </div>
+                        </div>
+                        <p class="gallery-caption">Cultural context understanding through visual narrative storytelling.</p>
                     </div>
                     <div class="gallery-item">
                         <div class="comic-frame-wrapper">
-                            <img src="images/examples/mathvista_2.png" alt="MathVista Slice-of-Life 2" loading="lazy">
+                            <img src="images/examples/culturalbench/comic_2.png" alt="CulturalBench Example 2" loading="lazy">
                             <div class="frame-overlay">
-                                <span class="frame-label">MathVista</span>
+                                <span class="frame-label">CulturalBench</span>
                             </div>
                         </div>
-                        <p class="gallery-caption">Chart understanding through comics</p>
+                        <p class="gallery-caption">Cross-cultural knowledge reasoning with embedded cultural semantics.</p>
                     </div>
                 </div>
                 
+                <!-- Document QA Gallery -->
                 <div class="gallery-grid hidden" id="gallery-document">
                     <div class="gallery-item">
                         <div class="comic-frame-wrapper">
-                            <img src="images/examples/comic_1012.png" alt="DocVQA Example 1" loading="lazy">
+                            <img src="images/examples/docvqa/comic_1012.png" alt="DocVQA Example 1" loading="lazy">
                             <div class="frame-overlay">
                                 <span class="frame-label">DocVQA</span>
                             </div>
                         </div>
-                        <p class="gallery-caption">Document information extraction</p>
+                        <p class="gallery-caption">Document information extraction through comic narrative.</p>
                     </div>
                     <div class="gallery-item">
                         <div class="comic-frame-wrapper">
-                            <img src="images/examples/comic_1013.png" alt="DocVQA Example 2" loading="lazy">
+                            <img src="images/examples/docvqa/comic_1013.png" alt="DocVQA Example 2" loading="lazy">
                             <div class="frame-overlay">
                                 <span class="frame-label">DocVQA</span>
                             </div>
                         </div>
-                        <p class="gallery-caption">Form understanding through comics</p>
+                        <p class="gallery-caption">Form understanding through visual reasoning panels.</p>
                     </div>
                     <div class="gallery-item">
                         <div class="comic-frame-wrapper">
-                            <img src="images/examples/comic_1014.png" alt="DocVQA Example 3" loading="lazy">
+                            <img src="images/examples/docvqa/comic_1014.png" alt="DocVQA Example 3" loading="lazy">
                             <div class="frame-overlay">
                                 <span class="frame-label">DocVQA</span>
                             </div>
                         </div>
-                        <p class="gallery-caption">Receipt parsing visualization</p>
+                        <p class="gallery-caption">Document-level understanding with key information extraction.</p>
                     </div>
                 </div>
                 
+                <!-- Translation Gallery -->
                 <div class="gallery-grid hidden" id="gallery-translation">
                     <div class="gallery-item">
                         <div class="comic-frame-wrapper">
-                            <img src="images/examples/CYB_BUBBLEGOM_T01_005_translated.png" alt="Translation Example 1" loading="lazy">
+                            <img src="images/examples/translation/CYB_BUBBLEGOM_T01_005_translated.png" alt="Translation Example 1" loading="lazy">
                             <div class="frame-overlay">
                                 <span class="frame-label">Translation</span>
                             </div>
                         </div>
-                        <p class="gallery-caption">Comic translated to Chinese</p>
+                        <p class="gallery-caption">Comic page translated to Chinese with in-situ text rendering.</p>
                     </div>
                     <div class="gallery-item">
                         <div class="comic-frame-wrapper">
-                            <img src="images/examples/CYB_BUBBLEGOM_T01_007_translated.png" alt="Translation Example 2" loading="lazy">
+                            <img src="images/examples/translation/CYB_BUBBLEGOM_T01_007_translated.png" alt="Translation Example 2" loading="lazy">
                             <div class="frame-overlay">
                                 <span class="frame-label">Translation</span>
                             </div>
                         </div>
-                        <p class="gallery-caption">Preserving visual style in translation</p>
+                        <p class="gallery-caption">Preserving visual style while translating speech bubbles.</p>
                     </div>
                     <div class="gallery-item">
                         <div class="comic-frame-wrapper">
-                            <img src="images/examples/CYB_BUBBLEGOM_T01_009_translated.png" alt="Translation Example 3" loading="lazy">
+                            <img src="images/examples/translation/CYB_BUBBLEGOM_T01_009_translated.png" alt="Translation Example 3" loading="lazy">
                             <div class="frame-overlay">
                                 <span class="frame-label">Translation</span>
                             </div>
                         </div>
-                        <p class="gallery-caption">Maintaining narrative flow</p>
+                        <p class="gallery-caption">Maintaining narrative flow across languages.</p>
                     </div>
                 </div>
             </div>
@@ -580,13 +954,13 @@
                 <button class="copy-btn" onclick="copyCitation()">
                     <i class="fas fa-copy"></i> Copy
                 </button>
-                <pre><code>@inproceedings{author2026thinking,
-  title={Thinking with Comics: Enhancing LLM Generative 
-         Capabilities through Structured Visual Storytelling},
-  author={Author, First and Author, Second and Others},
-  booktitle={Proceedings of the International Conference 
-             on Machine Learning (ICML)},
-  year={2026}
+                <pre><code>@article{chen2025thinkingcomics,
+  author    = {Chen, Andong and Zhu, Wenxin and Ding, Qiuyu and 
+               Song, Yuchen and Yang, Muyun and Zhao, Tiejun},
+  title     = {Thinking with Comics: Enhancing Multimodal Reasoning 
+               through Structured Visual Storytelling},
+  journal   = {arXiv preprint},
+  year      = {2025}
 }</code></pre>
             </div>
         </div>
@@ -605,7 +979,7 @@
                     <a href="#"><i class="fas fa-envelope"></i> Contact</a>
                 </div>
                 <p class="footer-text">
-                    © 2026 Thinking with Comics Authors. All rights reserved.
+                    © 2025 Thinking with Comics Authors. All rights reserved.
                 </p>
             </div>
         </div>
@@ -619,6 +993,439 @@
         </div>
     </footer>
 
+    <!-- Image Modal -->
+    <div class="image-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <img src="" alt="Full size image">
+        </div>
+    </div>
+
     <script src="js/main.js"></script>
+    
+    <!-- Academic Charts Initialization -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Common chart options for academic style
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.font.size = 12;
+        
+        // Figure 3: Scaling the Panels (Dual Y-Axis Line Chart)
+        const scalingCtx = document.getElementById('scalingChart');
+        if (scalingCtx) {
+            new Chart(scalingCtx, {
+                type: 'line',
+                data: {
+                    labels: ['1', '2', '4', '6', '8'],
+                    datasets: [{
+                        label: 'Accuracy (%)',
+                        data: [66.5, 75.5, 84.5, 90.0, 92.0],
+                        borderColor: '#4472C4',
+                        backgroundColor: '#4472C4',
+                        pointStyle: 'rectRot',
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        tension: 0.1,
+                        yAxisID: 'y'
+                    }, {
+                        label: 'Token Cost',
+                        data: [1120, 1138, 1188, 1232, 1290],
+                        borderColor: '#ED7D31',
+                        backgroundColor: '#ED7D31',
+                        borderDash: [5, 5],
+                        pointStyle: 'triangle',
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        tension: 0.1,
+                        yAxisID: 'y1'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        title: { display: false },
+                        legend: { position: 'bottom' },
+                        annotation: {
+                            annotations: {
+                                box1: {
+                                    type: 'box',
+                                    xMin: 1.8, xMax: 3.2,
+                                    backgroundColor: 'rgba(144, 238, 144, 0.2)',
+                                    borderWidth: 0
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Number of Panels (N)', font: { weight: 'bold' } },
+                            grid: { display: true, drawOnChartArea: true, drawTicks: true, color: '#e0e0e0' }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: { display: true, text: 'Accuracy (%)', font: { weight: 'bold' } },
+                            min: 40, max: 100,
+                            grid: { color: '#e0e0e0', drawOnChartArea: true }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: { display: true, text: 'Relative Cost (Tokens)', font: { weight: 'bold' } },
+                            min: 1080, max: 1320,
+                            grid: { drawOnChartArea: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Figure 4: Panel Distribution (Multi-line Chart)
+        const distCtx = document.getElementById('distributionChart');
+        if (distCtx) {
+            new Chart(distCtx, {
+                type: 'line',
+                data: {
+                    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+                    datasets: [{
+                        label: 'GSM8K',
+                        data: [33.28, 0.25, 1.61, 62.82, 1.02, 0.93, 0.08, null, null, null],
+                        borderColor: '#4472C4',
+                        backgroundColor: '#4472C4',
+                        pointStyle: 'rectRot',
+                        pointRadius: 5,
+                        tension: 0.3
+                    }, {
+                        label: 'DocVQA',
+                        data: [0.11, null, 0.91, 89.89, 3.75, 5.34, null, null, null, null],
+                        borderColor: '#A5A5A5',
+                        backgroundColor: '#A5A5A5',
+                        pointStyle: 'triangle',
+                        pointRadius: 5,
+                        tension: 0.3
+                    }, {
+                        label: 'CultureBench-hard',
+                        data: [0.33, 1.23, 5.83, 85.95, 3.78, 2.63, 0.08, 0.08, 0.08, null],
+                        borderColor: '#FFC000',
+                        backgroundColor: '#FFC000',
+                        pointStyle: 'diamond',
+                        pointRadius: 5,
+                        tension: 0.3
+                    }, {
+                        label: 'MathVista',
+                        data: [1.08, 0.11, 1.84, 55.52, 5.63, 30.41, 1.08, 2.38, 1.62, 0.11],
+                        borderColor: '#ED7D31',
+                        backgroundColor: '#ED7D31',
+                        pointStyle: 'circle',
+                        pointRadius: 5,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right' }
+                    },
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Number of Panels', font: { weight: 'bold' } },
+                            grid: { color: '#e0e0e0' }
+                        },
+                        y: {
+                            title: { display: true, text: 'Frequency (%)', font: { weight: 'bold' } },
+                            min: 0, max: 100,
+                            grid: { color: '#e0e0e0' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Figure 5: Temporal Perturbation (Dual Line Chart)
+        const temporalCtx = document.getElementById('temporalChart');
+        if (temporalCtx) {
+            new Chart(temporalCtx, {
+                type: 'line',
+                data: {
+                    labels: ['0', '0.2', '0.4', '0.6', '0.8', '1.0'],
+                    datasets: [{
+                        label: 'TwC (Shuffle)',
+                        data: [75.0, 74.2, 73.6, 73.1, 72.8, 72.6],
+                        borderColor: '#4472C4',
+                        backgroundColor: '#4472C4',
+                        pointStyle: 'rectRot',
+                        pointRadius: 6,
+                        tension: 0.1
+                    }, {
+                        label: 'TwC (Deletion)',
+                        data: [75.0, 74.5, 73.9, 73.2, 72.4, 71.5],
+                        borderColor: '#ED7D31',
+                        backgroundColor: '#ED7D31',
+                        pointStyle: 'triangle',
+                        pointRadius: 6,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top' }
+                    },
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Perturbation Intensity (Shuffle σ / Deletion ρ)', font: { weight: 'bold' } },
+                            grid: { color: '#e0e0e0' }
+                        },
+                        y: {
+                            title: { display: true, text: 'Reasoning Acc (%)', font: { weight: 'bold' } },
+                            min: 71, max: 76,
+                            grid: { color: '#e0e0e0' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Figure 6: Textual Anchoring Ablation (Grouped Bar Chart)
+        const ablationCtx = document.getElementById('ablationChart');
+        if (ablationCtx) {
+            new Chart(ablationCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['CulBen-Easy', 'CulBen-Hard', 'MathVista'],
+                    datasets: [{
+                        label: 'Pure Visual',
+                        data: [70.2, 73.9, 72.6],
+                        backgroundColor: 'rgba(165, 165, 165, 0.8)',
+                        borderColor: '#A5A5A5',
+                        borderWidth: 1
+                    }, {
+                        label: 'Textual Anchoring',
+                        data: [88.3, 82.2, 85.8],
+                        backgroundColor: 'rgba(68, 114, 196, 0.8)',
+                        borderColor: '#4472C4',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        datalabels: { display: true }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false }
+                        },
+                        y: {
+                            title: { display: true, text: 'Accuracy (%)', font: { weight: 'bold' } },
+                            min: 40, max: 100,
+                            grid: { color: '#e0e0e0' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Figure 7: Efficiency Analysis (pgfplots-style with annotations)
+        const efficiencyCtx = document.getElementById('efficiencyChart');
+        if (efficiencyCtx) {
+            // Custom plugin to draw the shaded efficiency gain area
+            const shadedAreaPlugin = {
+                id: 'shadedArea',
+                beforeDatasetsDraw(chart) {
+                    const { ctx, chartArea, scales } = chart;
+                    const xScale = scales.x;
+                    const yScale = scales.y;
+                    
+                    // Draw shaded area between video cost line and comic cost line (from break-even to end)
+                    const breakEvenX = xScale.getPixelForValue(1.34);
+                    const endX = xScale.getPixelForValue(12);
+                    const comicY = yScale.getPixelForValue(0.134);
+                    
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.moveTo(breakEvenX, comicY);
+                    ctx.lineTo(endX, comicY);
+                    ctx.lineTo(endX, yScale.getPixelForValue(1.2));
+                    ctx.lineTo(breakEvenX, yScale.getPixelForValue(0.134));
+                    ctx.closePath();
+                    ctx.fillStyle = 'rgba(68, 114, 196, 0.15)';
+                    ctx.fill();
+                    ctx.restore();
+                }
+            };
+            
+            new Chart(efficiencyCtx, {
+                type: 'line',
+                plugins: [shadedAreaPlugin],
+                data: {
+                    labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                    datasets: [{
+                        label: 'Video: C(t) = 0.10 · t',
+                        data: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2],
+                        borderColor: 'rgb(180, 50, 50)',
+                        backgroundColor: 'rgb(180, 50, 50)',
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        pointHoverRadius: 4,
+                        fill: false,
+                        tension: 0
+                    }, {
+                        label: 'TwC: C = 0.134',
+                        data: [0.134, 0.134, 0.134, 0.134, 0.134, 0.134, 0.134, 0.134, 0.134, 0.134, 0.134, 0.134, 0.134],
+                        borderColor: 'rgb(68, 114, 196)',
+                        backgroundColor: 'rgb(68, 114, 196)',
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        pointHoverRadius: 4,
+                        fill: false,
+                        tension: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { 
+                            position: 'top',
+                            align: 'start',
+                            labels: {
+                                usePointStyle: false,
+                                font: { size: 11 }
+                            }
+                        },
+                        annotation: {
+                            annotations: {
+                                // Break-even vertical line
+                                breakEvenLine: {
+                                    type: 'line',
+                                    xMin: 1.34,
+                                    xMax: 1.34,
+                                    yMin: 0,
+                                    yMax: 0.134,
+                                    borderColor: 'rgba(128, 128, 128, 0.7)',
+                                    borderWidth: 2,
+                                    borderDash: [4, 4]
+                                },
+                                // Break-even label
+                                breakEvenLabel: {
+                                    type: 'label',
+                                    xValue: 0.8,
+                                    yValue: 0.18,
+                                    content: ['Break-even', 't ≈ 1.34s'],
+                                    font: { size: 10 },
+                                    color: '#666',
+                                    textAlign: 'center'
+                                },
+                                // Video cost point at t=10
+                                videoPoint: {
+                                    type: 'point',
+                                    xValue: 10,
+                                    yValue: 1.0,
+                                    backgroundColor: 'rgb(180, 50, 50)',
+                                    radius: 6,
+                                    borderColor: 'white',
+                                    borderWidth: 2
+                                },
+                                // Comic cost point at t=10
+                                comicPoint: {
+                                    type: 'point',
+                                    xValue: 10,
+                                    yValue: 0.134,
+                                    backgroundColor: 'rgb(68, 114, 196)',
+                                    radius: 6,
+                                    borderColor: 'white',
+                                    borderWidth: 2
+                                },
+                                // Video price label
+                                videoLabel: {
+                                    type: 'label',
+                                    xValue: 10,
+                                    yValue: 1.08,
+                                    content: ['$1.00'],
+                                    font: { weight: 'bold', size: 12 },
+                                    color: 'rgb(180, 50, 50)'
+                                },
+                                // Comic price label
+                                comicLabel: {
+                                    type: 'label',
+                                    xValue: 10,
+                                    yValue: 0.06,
+                                    content: ['$0.134'],
+                                    font: { weight: 'bold', size: 12 },
+                                    color: 'rgb(68, 114, 196)'
+                                },
+                                // Vertical arrow line between points
+                                arrowLine: {
+                                    type: 'line',
+                                    xMin: 10.5,
+                                    xMax: 10.5,
+                                    yMin: 0.18,
+                                    yMax: 0.95,
+                                    borderColor: 'rgba(50, 50, 50, 0.6)',
+                                    borderWidth: 1.5,
+                                    borderDash: [3, 3]
+                                },
+                                // Cost reduction label
+                                reductionLabel: {
+                                    type: 'label',
+                                    xValue: 11.3,
+                                    yValue: 0.55,
+                                    content: ['86.6% Cost', 'Reduction'],
+                                    font: { weight: 'bold', size: 11 },
+                                    color: '#333',
+                                    textAlign: 'left'
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            min: 0,
+                            max: 12,
+                            title: { 
+                                display: true, 
+                                text: 'Reasoning Task Duration t (seconds)', 
+                                font: { weight: 'bold', size: 12 }
+                            },
+                            grid: { 
+                                color: 'rgba(200, 200, 200, 0.3)',
+                                drawBorder: true
+                            },
+                            ticks: {
+                                stepSize: 2
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            min: 0,
+                            max: 1.2,
+                            title: { 
+                                display: true, 
+                                text: 'Generation Cost C(·) (USD)', 
+                                font: { weight: 'bold', size: 12 }
+                            },
+                            grid: { 
+                                color: 'rgba(200, 200, 200, 0.3)',
+                                drawBorder: true
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    });
+    </script>
 </body>
 </html>
