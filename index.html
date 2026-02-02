@@ -112,6 +112,124 @@
                     and <span class="highlight">visual storytelling</span> for enhanced VLM reasoning.
                 </p>
             </div>
+            
+            <!-- Example Showcase -->
+            <div class="tldr-examples">
+                <h3 style="text-align: center; margin: 40px 0 30px; font-size: 1.3rem; color: var(--dark);">
+                    <span class="comic-caption" style="font-size: 0.85rem; display: block; margin-bottom: 10px;">SEE IT IN ACTION</span>
+                    Example Comic Outputs Across Different Tasks
+                </h3>
+                
+                <!-- Task Tabs -->
+                <div class="tldr-tabs">
+                    <button class="tldr-tab-btn active" data-tab="tldr-math">🔢 Math Reasoning</button>
+                    <button class="tldr-tab-btn" data-tab="tldr-visual">👁️ Visual Math</button>
+                    <button class="tldr-tab-btn" data-tab="tldr-culture">🏛️ Culture QA</button>
+                    <button class="tldr-tab-btn" data-tab="tldr-document">📄 Document QA</button>
+                    <button class="tldr-tab-btn" data-tab="tldr-translation">🌐 Translation</button>
+                </div>
+                
+                <!-- Task Content -->
+                <div class="tldr-examples-content">
+                    <!-- Math Reasoning Examples -->
+                    <div class="tldr-examples-grid" id="tldr-math">
+                        <div class="tldr-example-item">
+                            <div class="tldr-example-image">
+                                <img src="images/examples/gsm8k/comic_1.png" alt="GSM8K Example 1" loading="lazy" onclick="openImageModal(this.src)">
+                            </div>
+                            <p class="tldr-example-caption">GSM8K math problem solved through visual storytelling</p>
+                        </div>
+                        <div class="tldr-example-item">
+                            <div class="tldr-example-image">
+                                <img src="images/examples/gsm8k/comic_3.png" alt="GSM8K Example 2" loading="lazy" onclick="openImageModal(this.src)">
+                            </div>
+                            <p class="tldr-example-caption">Multi-step arithmetic reasoning visualized</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Visual Math Examples -->
+                    <div class="tldr-examples-grid hidden" id="tldr-visual">
+                        <div class="tldr-example-item">
+                            <div class="tldr-example-image">
+                                <img src="images/examples/mathvista/comic_1.png" alt="MathVista Example 1" loading="lazy" onclick="openImageModal(this.src)">
+                            </div>
+                            <p class="tldr-example-caption">Visual mathematical reasoning with chart understanding</p>
+                        </div>
+                        <div class="tldr-example-item">
+                            <div class="tldr-example-image">
+                                <img src="images/examples/mathvista/comic_2.png" alt="MathVista Example 2" loading="lazy" onclick="openImageModal(this.src)">
+                            </div>
+                            <p class="tldr-example-caption">Visual diagram interpretation with step-by-step reasoning</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Culture QA Examples -->
+                    <div class="tldr-examples-grid hidden" id="tldr-culture">
+                        <div class="tldr-example-item">
+                            <div class="tldr-example-image">
+                                <img src="images/examples/culturalbench/comic_1.png" alt="CulturalBench Example 1" loading="lazy" onclick="openImageModal(this.src)">
+                            </div>
+                            <p class="tldr-example-caption">Cultural context understanding through visual narrative</p>
+                        </div>
+                        <div class="tldr-example-item">
+                            <div class="tldr-example-image">
+                                <img src="images/examples/culturalbench/comic_2.png" alt="CulturalBench Example 2" loading="lazy" onclick="openImageModal(this.src)">
+                            </div>
+                            <p class="tldr-example-caption">Cross-cultural knowledge reasoning</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Document QA Examples -->
+                    <div class="tldr-examples-grid hidden" id="tldr-document">
+                        <div class="tldr-example-item">
+                            <div class="tldr-example-image">
+                                <img src="images/examples/docvqa/comic_1012.png" alt="DocVQA Example 1" loading="lazy" onclick="openImageModal(this.src)">
+                            </div>
+                            <p class="tldr-example-caption">Document information extraction through comic narrative</p>
+                        </div>
+                        <div class="tldr-example-item">
+                            <div class="tldr-example-image">
+                                <img src="images/examples/docvqa/comic_1013.png" alt="DocVQA Example 2" loading="lazy" onclick="openImageModal(this.src)">
+                            </div>
+                            <p class="tldr-example-caption">Form understanding through visual reasoning panels</p>
+                        </div>
+                        <div class="tldr-example-item">
+                            <div class="tldr-example-image">
+                                <img src="images/examples/docvqa/comic_1014.png" alt="DocVQA Example 3" loading="lazy" onclick="openImageModal(this.src)">
+                            </div>
+                            <p class="tldr-example-caption">Document-level understanding with key information extraction</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Translation Examples -->
+                    <div class="tldr-examples-grid hidden" id="tldr-translation">
+                        <div class="tldr-example-item">
+                            <div class="tldr-example-image">
+                                <img src="images/examples/translation/CYB_BUBBLEGOM_T01_005_translated.png" alt="Translation Example 1" loading="lazy" onclick="openImageModal(this.src)">
+                            </div>
+                            <p class="tldr-example-caption">Comic page translated to Chinese with in-situ text rendering</p>
+                        </div>
+                        <div class="tldr-example-item">
+                            <div class="tldr-example-image">
+                                <img src="images/examples/translation/CYB_BUBBLEGOM_T01_007_translated.png" alt="Translation Example 2" loading="lazy" onclick="openImageModal(this.src)">
+                            </div>
+                            <p class="tldr-example-caption">Preserving visual style while translating speech bubbles</p>
+                        </div>
+                        <div class="tldr-example-item">
+                            <div class="tldr-example-image">
+                                <img src="images/examples/translation/CYB_BUBBLEGOM_T01_009_translated.png" alt="Translation Example 3" loading="lazy" onclick="openImageModal(this.src)">
+                            </div>
+                            <p class="tldr-example-caption">Maintaining narrative flow across languages</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="#gallery" style="display: inline-block; padding: 12px 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 25px; font-weight: 500; transition: transform 0.3s ease; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
+                        View Full Gallery →
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 

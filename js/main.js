@@ -72,6 +72,43 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ========================================
+    // TL;DR Tab Switching
+    // ========================================
+    const tldrTabButtons = document.querySelectorAll('.tldr-tab-btn');
+    const tldrGrids = document.querySelectorAll('.tldr-examples-grid');
+    
+    tldrTabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            tldrTabButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            // Hide all TL;DR grids
+            tldrGrids.forEach(grid => grid.classList.add('hidden'));
+            
+            // Show the selected grid
+            const tabName = button.getAttribute('data-tab');
+            const targetGrid = document.getElementById(tabName);
+            if (targetGrid) {
+                targetGrid.classList.remove('hidden');
+                
+                // Animate items
+                const items = targetGrid.querySelectorAll('.tldr-example-item');
+                items.forEach((item, index) => {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        item.style.transition = 'all 0.4s ease';
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            }
+        });
+    });
+    
+    // ========================================
     // Gallery Tab Switching
     // ========================================
     const tabButtons = document.querySelectorAll('.tab-btn');
