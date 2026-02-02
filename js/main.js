@@ -3,6 +3,18 @@
  * Interactive elements and animations (Full Version)
  */
 
+// Global function to open image in modal
+function openImageModal(src) {
+    const modal = document.querySelector('.image-modal');
+    const modalImg = modal ? modal.querySelector('.modal-content img') : null;
+    if (modal && modalImg) {
+        modalImg.src = src;
+        modal.classList.add('active');
+        setTimeout(() => modal.classList.add('visible'), 10);
+        document.body.style.overflow = 'hidden';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     
     // ========================================
